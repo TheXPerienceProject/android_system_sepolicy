@@ -786,24 +786,24 @@ allow system_server wifinl80211_service:service_manager find;
 add_service(system_server, batteryproperties_service)
 
 allow system_server keystore:keystore_key {
-	get_state
-	get
-	insert
-	delete
-	exist
-	list
-	reset
-	password
-	lock
-	unlock
-	is_empty
-	sign
-	verify
-	grant
-	duplicate
-	clear_uid
-	add_auth
-	user_changed
+  get_state
+  get
+  insert
+  delete
+  exist
+  list
+  reset
+  password
+  lock
+  unlock
+  is_empty
+  sign
+  verify
+  grant
+  duplicate
+  clear_uid
+  add_auth
+  user_changed
 };
 
 # Allow system server to search and write to the persistent factory reset
@@ -975,6 +975,9 @@ get_prop(system_server, system_lmk_prop)
 
 # Only system server can access BINDER_FREEZE and BINDER_GET_FROZEN_INFO
 allowxperm system_server binder_device:chr_file ioctl { BINDER_FREEZE BINDER_GET_FROZEN_INFO };
+
+# allow system_server to look into theme resources
+allow system_server theme_data_file:dir search;
 
 ###
 ### Neverallow rules

@@ -19,8 +19,12 @@
     package_native_service
     sdcard_posix
     sudaemon
+    substratum_service
     sysfs_fs_ext4_features
+    system_data_file
     system_net_netd_hwservice
+    theme_data_file
+    theme_prop
     thermal_service
     thermalcallback_hwservice
     thermalserviced

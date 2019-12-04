@@ -46,6 +46,7 @@ neverallow {
     -ueventd
     -system_server
     -vold
+    -system_app
 } sysfs_leds:file *;
 ')
 

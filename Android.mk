@@ -1055,11 +1055,13 @@ $(built_sepolicy_neverallows)
 	$(hide) sed -i '/backuptool/d' $@.permissivedomains
 	$(hide) sed -i '/recovery/d' $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
+		if [ "$$(cat $@.permissivedomains)" != "recovery" ]; then \
 		echo "==========" 1>&2; \
 		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
 		echo "List of invalid domains:" 1>&2; \
 		cat $@.permissivedomains 1>&2; \
 		exit 1; \
+		fi \
 		fi
 	$(hide) mv $@.tmp $@
 
@@ -1118,11 +1120,13 @@ $(LOCAL_BUILT_MODULE): $(sepolicy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpo
 	$(hide) sed -i '/backuptool/d' $@.permissivedomains
 	$(hide) sed -i '/recovery/d' $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
+		if [ "$$(cat $@.permissivedomains)" != "recovery" ]; then \
 		echo "==========" 1>&2; \
 		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
 		echo "List of invalid domains:" 1>&2; \
 		cat $@.permissivedomains 1>&2; \
 		exit 1; \
+		fi \
 		fi
 	$(hide) mv $@.tmp $@
 

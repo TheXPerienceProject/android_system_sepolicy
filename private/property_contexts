@@ -238,6 +238,7 @@ persist.device_config.attempted_boot_count          u:object_r:device_config_boo
 persist.device_config.configuration.                u:object_r:device_config_configuration_prop:s0
 persist.device_config.connectivity.                 u:object_r:device_config_connectivity_prop:s0
 persist.device_config.input_native_boot.            u:object_r:device_config_input_native_boot_prop:s0
+persist.device_config.lmkd_native.                  u:object_r:device_config_lmkd_native_prop:s0
 persist.device_config.media_native.                 u:object_r:device_config_media_native_prop:s0
 persist.device_config.netd_native.                  u:object_r:device_config_netd_native_prop:s0
 persist.device_config.profcollect_native_boot.      u:object_r:device_config_profcollect_native_boot_prop:s0
@@ -323,6 +324,9 @@ audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 ro.audio.ignore_effects   u:object_r:audio_config_prop:s0 exact bool
 ro.audio.monitorRotation  u:object_r:audio_config_prop:s0 exact bool
 ro.audio.offload_wakelock u:object_r:audio_config_prop:s0 exact bool
+# Boolean property used in AudioService to configure whether
+# spatializer functionality should be initialized
+ro.audio.spatializer_enabled u:object_r:audio_config_prop:s0 exact bool
 
 persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
 
@@ -672,6 +676,8 @@ ro.boot.revision           u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.avb_version u:object_r:bootloader_prop:s0 exact string
 ro.boot.verifiedbootstate  u:object_r:bootloader_prop:s0 exact string
 ro.boot.veritymode         u:object_r:bootloader_prop:s0 exact string
+# Properties specific to virtualized deployments of Android
+ro.boot.hypervisor.version                  u:object_r:hypervisor_prop:s0 exact string
 
 # These ro.X properties are set to values of ro.boot.X by property_service.
 ro.baseband   u:object_r:bootloader_prop:s0 exact string
@@ -1108,6 +1114,8 @@ cache_key.telephony.                     u:object_r:binder_cache_telephony_serve
 framework_watchdog.fatal_count                u:object_r:framework_watchdog_config_prop:s0 exact int
 framework_watchdog.fatal_window.second        u:object_r:framework_watchdog_config_prop:s0 exact int
 
+gsm.operator.iso-country       u:object_r:telephony_status_prop:s0 exact string
+gsm.sim.operator.iso-country   u:object_r:telephony_status_prop:s0 exact string
 gsm.sim.operator.numeric       u:object_r:telephony_status_prop:s0 exact string
 persist.radio.airplane_mode_on u:object_r:telephony_status_prop:s0 exact bool
 
@@ -1123,8 +1131,17 @@ ro.telephony.iwlan_operation_mode u:object_r:telephony_config_prop:s0 exact enum
 telephony.active_modems.max_count u:object_r:telephony_config_prop:s0 exact int
 telephony.lteOnCdmaDevice         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr0      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr1      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr2      u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr0         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr1         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr2         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr0        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr1        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr2        u:object_r:telephony_config_prop:s0 exact int
 
 # System locale list filter configuration
 ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
